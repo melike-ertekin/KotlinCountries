@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ge.kotlincountries.adapter.CountryAdapter
+import com.ge.kotlincountries.util.myExtension
 import com.ge.kotlincountries.viewmodel.FeedViewModel
 import kotlinx.android.synthetic.main.fragment_feed.*
 
@@ -45,6 +46,10 @@ class FeedFragment : Fragment() {
 
         countryList.layoutManager = LinearLayoutManager(context)
         countryList.adapter = countryAdapter
+
+        //Extention example
+        val myString = "Test"
+        myString.myExtension("Test2")
 
 
         swipeRefreshLayout.setOnRefreshListener {
