@@ -6,10 +6,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import com.ge.kotlincountries.databinding.FragmentCountryBinding
 import com.ge.kotlincountries.util.downloadFromUrl
 import com.ge.kotlincountries.util.placeholderprogressBar
 import com.ge.kotlincountries.viewmodel.CountryViewModel
@@ -23,13 +25,17 @@ class CountryFragment : Fragment() {
 
     private var countryId = 0
     private lateinit var viewModel : CountryViewModel
+    private lateinit var dataBinding: FragmentCountryBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_country, container, false)
+        //return inflater.inflate(R.layout.fragment_country, container, false)
+
+        dataBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_country, container, false)
+        return dataBinding.root
     }
 
 
@@ -53,7 +59,11 @@ class CountryFragment : Fragment() {
     private fun observeLiveData(){
         viewModel.countryLiveData.observe(viewLifecycleOwner, Observer {country ->
             country?.let {
-                countryName.text = country.countryName
+
+                dataBinding.selectedCountry = country
+
+                
+                /*countryName.text = country.countryName
                 countryCapital.text = country.countryCapital
                 countryCurrency.text = country.countryCurrency
                 countryLanguage.text = country.countryLanguage
@@ -62,7 +72,7 @@ class CountryFragment : Fragment() {
                 context?.let {
                     countryImage.downloadFromUrl(country.imageUrl, placeholderprogressBar(it))
                 }
-
+            */
             }
         })
 
